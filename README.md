@@ -1,1 +1,3 @@
-# SPINOS-dataset
+# SPINOS: A Dataset of Subtle Polarity and Intensity Opinion Shifts
+
+Coming soon...
