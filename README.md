@@ -1,6 +1,6 @@
 # SPINOS: A Dataset of Subtle Polarity and Intensity Opinion Shifts
 
-You will need Python>=3.8 and the following package to be installed:
+You will need Python>=3.8 and the following package to be installed in order to load the dataset:
 ```
 pip install pandas==1.3.4
 ```
@@ -22,7 +22,7 @@ The dataframe contains the following columns:
 
 - `exp_annotation` *(str)*: Annotation assigned by the expert annotators.
 
-- `s_against` (strongly against), `against` (weakly against), `stance_not_inferrable`, `favor` (weakly in favor), `s_favor` (strongly in favor) *(int)*: Count of how many times the annotators assigned the corresponding stance.
+- `s_against` (strongly against), `against` (weakly against), `stance_not_inferrable`, `favor` (weakly in favor), `s_favor` (strongly in favor) *(int)*: Count of how many times the non-expert annotators assigned the corresponding stance.
 
 - `is_explicit` *(str)*: The stance is explicitly stated. Values = \['No', 'Yes'\].
 
@@ -32,6 +32,6 @@ The dataframe contains the following columns:
 
 - `toplevel_id` *(str)*: ID of the top-level post in the thread 
 
-- `parent_ids` *(list)*: List
+- `parent_ids` *(list)*: List of the parent posts' ids that where used for the annotation
 
-- `platform_specific`
+- `platform_specific` *(dict)*: Dictionary with various attributes a post might have that are obtained from Reddit, namely: awards_, controversiality, media_only, num_comments, score, subreddit and title wherever they apply.
