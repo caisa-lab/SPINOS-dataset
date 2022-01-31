@@ -2,6 +2,8 @@
 
 # SPINOS: A Dataset of Subtle Polarity and Intensity Opinion Shifts
 
+The dataset is intoduced and analyzed in our paper *Investigating User Radicalization: A Novel Dataset for Identifying Fine-Grained Temporal Shifts in Opinion*
+
 You will need Python>=3.8 and the following package to be installed in order to load the dataset:
 ```
 pip install pandas==1.3.4
