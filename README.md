@@ -1,8 +1,9 @@
-<img src="SPINOS.jpeg" width="128"/>
 
-# SPINOS: A Dataset of Subtle Polarity and Intensity Opinion Shifts
+<img src="SPINOS.jpeg" width="128"/> 
 
-The dataset is intoduced and analyzed in our paper *Investigating User Radicalization: A Novel Dataset for Identifying Fine-Grained Temporal Shifts in Opinion*
+# SPINOS*: A Dataset of Subtle Polarity and Intensity Opinion Shifts
+
+
 
 You will need Python>=3.8 and the following package to be installed in order to load the dataset:
 ```
@@ -39,3 +40,11 @@ The dataframe contains the following columns:
 - `parent_ids` *(list)*: List of the parent posts' ids that where used for the annotation
 
 - `platform_specific` *(dict)*: Dictionary with various attributes a post might have that are obtained from Reddit, namely: awards_, controversiality, media_only, num_comments, score, subreddit and title wherever they apply.
+
+---
+
+The dataset is introduced and analyzed in our paper: *Investigating User Radicalization: A Novel Dataset for Identifying Fine-Grained Temporal Shifts in Opinion*
+
+---
+
+* Fun fact: SPINOS in Greek (σπίνος) means chaffinch, which is our logo. Interestigly, this name bring together some of the authors of the paper, since the first author is Greek, the second author is an aspirant birdwatcher and the third author's surname means "bird" in German.
