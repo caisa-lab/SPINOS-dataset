@@ -1,7 +1,7 @@
 
 <img src="SPINOS.jpeg" width="128"/> 
 
-# SPINOS*: A Dataset of Subtle Polarity and Intensity Opinion Shifts
+# SPINOS[^note]: A Dataset of Subtle Polarity and Intensity Opinion Shifts
 
 
 
@@ -43,8 +43,6 @@ The dataframe contains the following columns:
 
 ---
 
-The dataset is introduced and analyzed in our paper: *Investigating User Radicalization: A Novel Dataset for Identifying Fine-Grained Temporal Shifts in Opinion*
+The dataset is introduced and analyzed in our paper: *Investigating User Radicalization: A Novel Dataset for Identifying Fine-Grained Temporal Shifts in Opinion*, Flora Sakketou, Allison Lahnala, Liane Vogel and Lucie Flek
 
----
-
-* Fun fact: SPINOS in Greek (σπίνος) means chaffinch, which is our logo. Interestigly, this name bring together some of the authors of the paper, since the first author is Greek, the second author is an aspirant birdwatcher and the third author's surname means "bird" in German.
+[^note]: Fun fact: SPINOS in Greek (σπίνος) means chaffinch, which is our logo. Interestigly, this name brings together some of the authors of the paper, since the first author is Greek, the second author is an aspirant birdwatcher and the third author's surname means "bird" in German.
