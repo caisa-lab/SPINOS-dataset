@@ -1,3 +1,4 @@
+<img src="SPINOS.jpeg" width="128"/>
 # SPINOS: A Dataset of Subtle Polarity and Intensity Opinion Shifts
 
 You will need Python>=3.8 and the following package to be installed in order to load the dataset:
