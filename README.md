@@ -27,8 +27,6 @@ The dataframe contains the following columns:
 
 - `exp_annotation` *(str)*: Annotation assigned by the expert annotators.
 
-- `s_against` (strongly against), `against` (weakly against), `stance_not_inferrable`, `favor` (weakly in favor), `s_favor` (strongly in favor) *(int)*: Count of how many times the non-expert annotators assigned the corresponding stance.
-
 - `is_explicit` *(str)*: The stance is explicitly stated. Values = \['No', 'Yes'\].
 
 - `is_sarcastic` *(str)*: The stance is sarcastic. Values = \['No', 'Yes'\].
