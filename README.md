@@ -16,10 +16,12 @@ import pandas as pd
 
 data = pd.read_pickle('data/SPINOS_dataset.pkl')
 ```
+The index of the rows corresponds to the ids of the posts in the Reddit API
 
 The dataframe contains the following columns:
 
-- `topic` *(str)*: The topic this statement is about.
+- `topic` *(str)*: The topic this statement is about. Possible values: 'abortion' 'feminism' 'brexit' 'veganism' 'guns' 'nuclear-energy'
+ 'capitalism' 'climate-change'
 
 - 'users' *(str)*: Which user has posted this particular post. *Note:* The usernames are completely anonymus and the names are in the form: 'user_0', 'user_1', etc.
 
