@@ -1,7 +1,7 @@
 
 <img src="SPINOS.jpeg" width="128"/> 
 
-# SPINOS[^note]: A Dataset of <ins>S</ins>ubtle *P*olarity and *IN*tensity *O*pinion *S*hifts
+# SPINOS[^note]: A Dataset of <ins>S</ins>ubtle <ins>P</ins>olarity and <ins>IN</ins>tensity <ins>O</ins>pinion <ins>S</ins>hifts
 
 
 
