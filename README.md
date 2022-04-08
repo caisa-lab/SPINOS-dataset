@@ -2,8 +2,7 @@
 <img src="SPINOS.jpeg" width="128"/> 
 
 # SPINOS[^note]: A Dataset of <ins>S</ins>ubtle <ins>P</ins>olarity and <ins>IN</ins>tensity <ins>O</ins>pinion <ins>S</ins>hifts
-
-You can find [here](https://htmlpreview.github.io/?https://github.com/caisa-lab/SPINOS-dataset//annotation_template/annotation_template_example_abortion.html) a template of the annotation for abortion
+You can find [here](https://rawgit.com/caisa-lab/SPINOS-dataset/blob/main/annotation_template/annotation_template_example_abortion.html) a template of the annotation for abortion
 
 You will need Python>=3.8 and the following package to be installed in order to load the dataset:
 ```
