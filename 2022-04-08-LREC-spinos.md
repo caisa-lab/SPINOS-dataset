@@ -71,7 +71,8 @@ For each user, we collected statements that were posted on average over the cour
 
 Our dataset includes the following topics: (1) abortion, (2) feminism, (3) brexit, (4) veganism/animal rights, (5) guns, (6) nuclear energy, (7) capitalism, and (8) climate change. This is the topic distribution in our dataset:
 
-![topic_distribution](./images/topic_distr.png)
+![topic_distribution](./images/topic_distr.png){ width=60% }
+
 <!-- ![topic_distribution](../../../images/topic_distr.png) -->
 
 Here are some basic dataset statistics:
@@ -88,7 +89,8 @@ Number of posts in annotated thread trees |      1752
 
 The final annotation labels are decided by the majority vote between at least three annotators. The *undecided label* was assigned in cases the cases where the votes were equally distributed to each polarity and the non inferrable category. The stance distribution per topic can be looked at:
 
-![stance_distr](./images/stance_distr.png)
+![stance_distr](./images/stance_distr_per_topic.png){ width=50% }
+
 <!-- ![stance_distr](../../../images/stance_distr.png) -->
 
 ### Annotator statistics ###
