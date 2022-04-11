@@ -81,7 +81,7 @@ Our dataset includes the following topics: (1) abortion, (2) feminism, (3) brexi
 <!-- ![topic_distribution](../../../images/topic_distr.png) -->
 
 Here are some basic dataset statistics:
-<center>
+<div align="center">
 Attribute | Statistic
 :------------- | :-------------:
 Total number of annotated posts |      3526 
@@ -91,7 +91,7 @@ Average number of posts per author |      5.53
 Number of annotated threads trees |       113 
 Number of annotated thread branches |       547 
 Number of posts in annotated thread trees |      1752 
-</center>
+</div>
 
 The final annotation labels are decided by the majority vote between at least three annotators. The *undecided label* was assigned in cases the cases where the votes were equally distributed to each polarity and the non inferrable category. The stance distribution per topic can be looked at:
 
