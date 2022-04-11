@@ -127,7 +127,6 @@ In cases such as Brexit, nuclear energy, and capitalism, we observed that there 
 
 This figure shows a selected sample of annotated posts from one specific user and how this user's opinion changes over time regarding abortion. Each row represents a distinct user and, each block represents a post and that user’s stance towards a topic. On the y axis we show each user’s entropy.
 <p align="center">
-<img src="https://github.com/caisa-lab/SPINOS-dataset/blob/main/images/legend.png" width="50%">
 <img src="https://github.com/caisa-lab/SPINOS-dataset/blob/main/images/opinion_change.png" width="50%">
 </p>
 
@@ -141,6 +140,7 @@ Most users change the polarity of their stance, however they rarely show strong 
 
 This figure shows the evolution of the users’ stance within a thread. Each row represents a distinct user and, each block represents a post and that user’s stance towards a topic. On the y axis we show each user’s entropy.
 <p align="center">
+<img src="https://github.com/caisa-lab/SPINOS-dataset/blob/main/images/legend.png" width="50%">
 <img src="https://github.com/caisa-lab/SPINOS-dataset/blob/main/images/thread_user_stance_all_cat.png" width="50%">
 </p>
 
