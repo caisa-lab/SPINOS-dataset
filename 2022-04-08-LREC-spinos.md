@@ -122,7 +122,7 @@ In cases such as Brexit, nuclear energy, and capitalism, we observed that there 
 
 ### User Stance Entropy ###
 
-> > :loudspeaker: :mega: **SPOILER ALERT:** :mega: :loudspeaker: Opinion change happens gradually over longer periods of time, however changes in opinion intensity can be observed within a conversation.
+> :loudspeaker: :mega: **SPOILER ALERT:** :mega: :loudspeaker: Opinion change happens gradually over longer periods of time, however changes in opinion intensity can be observed within a conversation.
 
 
 This figure shows a selected sample of annotated posts from one specific user and how this user's opinion changes over time regarding abortion. Each row represents a distinct user and, each block represents a post and that user’s stance towards a topic. On the y axis we show each user’s entropy.
