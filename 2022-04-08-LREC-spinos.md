@@ -160,10 +160,7 @@ We performed the following classification tasks:
 
 We evaluated several different n-gram models (up to trigrams) with Naive Bayes, Linear SVC, and Logistic Regression classifiers and a bert-based approach in a 10-fold setup. **DISCLAIMER:** We did not perform extensive experiments with varied parameters or feature engineering.
 
-This figure shows the results.
-<p align="center">
-<img src="https://github.com/caisa-lab/SPINOS-dataset/blob/main/images/baselines.png" width="50%">
-</p>
+This figure shows the top performing models by weighted F1 score for each classification task.
 
 Task (# classes) |  Top Model |  Random Baseline |  Majority Baseline
 :------------- | :-------------: | :-------------: | :-------------:
