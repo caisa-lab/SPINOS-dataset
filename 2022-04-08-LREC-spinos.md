@@ -73,6 +73,9 @@ Our dataset includes the following topics: (1) abortion, (2) feminism, (3) brexi
 
 ![topic_distribution](./images/topic_distr.png){ width=60% }
 
+<img src="https://github.com/caisa-lab/SPINOS-dataset/blob/main/images/topic_distr.png" width="40%">
+
+<!-- https://github.com/caisa-lab/SPINOS-dataset/blob/main/images/stacked_compare.png -->
 <!-- ![topic_distribution](../../../images/topic_distr.png) -->
 
 Here are some basic dataset statistics:
@@ -91,6 +94,7 @@ The final annotation labels are decided by the majority vote between at least th
 
 ![stance_distr](./images/stance_distr_per_topic.png){ width=50% }
 
+<img src="https://github.com/caisa-lab/SPINOS-dataset/blob/main/images/stance_distr_per_topic.png" width="400">
 <!-- ![stance_distr](../../../images/stance_distr.png) -->
 
 ### Annotator statistics ###
