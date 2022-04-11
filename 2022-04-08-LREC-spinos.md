@@ -10,7 +10,9 @@ tags:
 
 We are very excited to present our all-female-author paper "Investigating User Radicalization - A Novel Dataset for Identifying Fine-Grained Temporal Shifts in Opinion" from Flora Sakketou, Allison Lahnala, Liane Vogel and Lucie Flek at LREC 2022.  
 
-In this work, we present a dataset called SPINOS (<ins>S</ins>ubtle <ins>P</ins>olarity and <ins>IN</ins>tensity <ins>O</ins>pinion <ins>S</ins>hifts), which contains 3.5k Reddit entries from 600 users for modeling opinion dynamics and detecting fine-grained stances. 
+In this work, we present a dataset called SPINOS[^note] (<ins>S</ins>ubtle <ins>P</ins>olarity and <ins>IN</ins>tensity <ins>O</ins>pinion <ins>S</ins>hifts), which contains 3.5k Reddit entries from 600 users for modeling opinion dynamics and detecting fine-grained stances. 
+
+[^note]: Fun fact: SPINOS in Greek (σπίνος) means chaffinch, which is our logo. Interestigly, this name brings together some of the authors of the paper, since the first author is Greek, the second author is an aspirant birdwatcher and the third author's surname means "bird" in German.
 
 # TLDR; #
 
@@ -69,8 +71,8 @@ For each user, we collected statements that were posted on average over the cour
 
 Our dataset includes the following topics: (1) abortion, (2) feminism, (3) brexit, (4) veganism/animal rights, (5) guns, (6) nuclear energy, (7) capitalism, and (8) climate change. This is the topic distribution in our dataset:
 
-![topic_distribution](../../../images/topic_distr.png)
-
+![topic_distribution](./images/topic_distr.png)
+<!-- ![topic_distribution](../../../images/topic_distr.png) -->
 
 Here are some basic dataset statistics:
 Attribute | Statistic
@@ -86,7 +88,8 @@ Number of posts in annotated thread trees |      1752
 
 The final annotation labels are decided by the majority vote between at least three annotators. The *undecided label* was assigned in cases the cases where the votes were equally distributed to each polarity and the non inferrable category. The stance distribution per topic can be looked at:
 
-![stance_distr](../../../images/stance_distr.png)
+![stance_distr](./images/stance_distr.png)
+<!-- ![stance_distr](../../../images/stance_distr.png) -->
 
 ### Annotator statistics ###
 
