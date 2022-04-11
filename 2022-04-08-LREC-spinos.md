@@ -20,7 +20,7 @@ The dataset includes a sufficient amount of stance polarity and intensity labels
 
 We analyzed the stance evolution in long term and short term levels. When analyzing the stance evolution on a *long term level*, we observed that users change the polarity of their stance rather frequently, however most users express strong intensities for only one of the two poles (in favor or against). On a *short term level*, when analyzing the opinion fluctuations within conversational threads, we observe that there is usually only a change in intensity and rarely in the polarity, leading us to the conclusion that opinion change is expressed over time. In addition, we provide a comparison of language usage between users who tend to change their opinion frequently and users who are more stubborn, and also employ fine-grained stance detection baselines.
 
-# On to the long version then... :eyeglasses: :mag_right:#
+# On to the long version then... :eyeglasses: :mag_right:
 
 ## Why is this work important? ##
 
