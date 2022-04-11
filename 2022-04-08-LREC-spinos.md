@@ -134,13 +134,13 @@ We computed the user's entropy as an indicator of opinion change; **high entropy
 
 This figure shows the evolution of the opinionated users' stances through time for the topic abortion.
 <p align="center">
+<img src="https://github.com/caisa-lab/SPINOS-dataset/blob/main/images/legend.png" width="50%">
 <img src="https://github.com/caisa-lab/SPINOS-dataset/blob/main/images/opinionated_user_stance_all_cat_abortion_0.png" width="50%">
 </p>
 Most users change the polarity of their stance, however they rarely show strong intensities for both polarities. After further investigation, we observe vacillating attitudes in users with posting periods of over one month (similar patterns in opinion change are present for the rest of the topics).
 
 This figure shows the evolution of the users’ stance within a thread. Each row represents a distinct user and, each block represents a post and that user’s stance towards a topic. On the y axis we show each user’s entropy.
 <p align="center">
-<img src="https://github.com/caisa-lab/SPINOS-dataset/blob/main/images/legend.png" width="50%">
 <img src="https://github.com/caisa-lab/SPINOS-dataset/blob/main/images/thread_user_stance_all_cat.png" width="50%">
 </p>
 
