@@ -2,8 +2,11 @@
 <img src="SPINOS.jpeg" width="128"/> 
 
 # SPINOS[^note]: A Dataset of <ins>S</ins>ubtle <ins>P</ins>olarity and <ins>IN</ins>tensity <ins>O</ins>pinion <ins>S</ins>hifts
-You can find <a href="https://raw.githack.com/caisa-lab/SPINOS-dataset/main/annotation_template/annotation_template_example_abortion.html" target="_blank"> here</a> an example of the annotation template for abortion. The template contains the detailed annotation guidelines, the options given to the annotators and the optional survey they were kindly asked to fill.
+You can find <a href="https://raw.githack.com/caisa-lab/SPINOS-dataset/main/annotation_template/annotation_template_example_abortion.html" target="_blank"> here</a> an example of the annotation template for abortion. 
 
+The dataset is introduced and analyzed in our paper: *Investigating User Radicalization: A Novel Dataset for Identifying Fine-Grained Temporal Shifts in Opinion*, Flora Sakketou, Allison Lahnala, Liane Vogel and Lucie Flek
+
+Read <a href="https://caisa-lab.github.io/2022/04/08/LREC-spinos.html" target="_blank"> here</a> a blog post about our paper.
 
 
 You will need Python>=3.8 and the following package to be installed in order to load the dataset:
@@ -44,6 +47,6 @@ The dataframe contains the following columns:
 
 ---
 
-The dataset is introduced and analyzed in our paper: *Investigating User Radicalization: A Novel Dataset for Identifying Fine-Grained Temporal Shifts in Opinion*, Flora Sakketou, Allison Lahnala, Liane Vogel and Lucie Flek
+
 
 [^note]: Fun fact: SPINOS in Greek (σπίνος) means chaffinch, which is our logo. Interestigly, this name brings together some of the authors of the paper, since the first author is Greek, the second author is an aspirant birdwatcher and the third author's surname means "bird" in German.
