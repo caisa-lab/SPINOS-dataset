@@ -9,8 +9,6 @@ Read <a href="https://caisa-lab.github.io/2022/04/08/LREC-spinos.html" target="_
 
 Our dataset will be publicly available after LREC 2022... Stay tuned
 
----
-
 
 
 [^note]: Fun fact: SPINOS in Greek (σπίνος) means chaffinch, which is our logo. Interestigly, this name brings together some of the authors of the paper, since the first author is Greek, the second author is an aspirant birdwatcher and the third author's surname means "bird" in German.
