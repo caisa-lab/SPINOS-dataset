@@ -1,0 +1,55 @@
+{"abortion": {
+    "display_name": "abortion",
+    "description": "This topic is about abortion, i.e. the ending of a pregnancy by removal or expulsion of an embryo or fetus.",
+    "in_favor": "“In favor” (pro choice) of abortion are the authors who acknowledge the ability to choose abortion as a legal option for an unplanned pregnancy.",
+    "against":  "“Against” (pro life) are the authors who believe that abortion should be illegal, or that it should be legal only under specific conditions (e.g. rape)."   
+},
+"brexit":{
+    "display_name": "Brexit",
+    "description": "The topic is about the United Kingdom’s exit from the European Union. Note that some of the statements were made before the actual withdrawal of the United Kingdom from the European Union and some of them afterwards. All of the statements were made after the referendum.",
+    "in_favor": "“In favor” of Brexit are the authors who believe that it would benefit the UK or those who express a positive stance towards the way the Brexit was done.",
+    "against": "“Against” Brexit are the authors who believe that it would have a negative impact on the UK or those who express a negative stance towards the way the Brexit was done."
+},
+"guncontrol":{
+    "display_name": "guns",
+    "description": "The topic is about the possession or use of guns.",
+    "in_favor": "“In favor” of guns are the authors that relate to or support the elimination or reduction of limits and regulations on the sale and use of firearms or favoring the right to own guns. ",
+    "against": "“Against” guns are the authors that support the legislation that regulates the manufacture, sale, transfer, possession, modification, or use of firearms by civilians; or opposing, prohibiting, or strictly controlling the sale and possession of guns or of certain types of guns."
+},
+"feminism":{
+    "display_name": "feminism",
+    "description": "The topic is related to feminism both in terms of equal rights and also in terms of opportunities.", 
+    "in_favor": "“In favor” of feminism are the authors who state that women should have equal rights and opportunities in matters of divorce, property, employment, and other. ",
+    "against": "“Against” feminism are the authors who express any discrimination against women, or wish to suppress any kind of attempt for equal rights and opportunities."
+},
+"nuclear-energy":{
+    "display_name": "nuclear energy",
+    "description": "This topic is about nuclear energy as a source of power for everyday use.",
+    "in_favor": "“In favor” of nuclear energy are authors who believe that it is beneficial in many aspects and should be used as a source of energy. ",
+    "against": "“Against” nuclear energy are the authors who think that it has negative effects for humankind and are opposed to using it to generate power."
+},
+"veganism-animalrights":{
+    "display_name": "veganism",
+    "description": "This topic is about veganism as a lifestyle.", 
+    "in_favor": "“In favor” of veganism are authors who state that they against the exploitation of, and cruelty to, animals.",
+    "against": "“Against” veganism are the authors who support eating any kind of meat or use/eat animal products (that includes people who are omnivores, carnivores, and pescatarians). "
+},
+"police-brutality":{
+    "display_name": "police brutality",
+    "description": "The topic is about the use of excessive force by police officers.", 
+    "in_favor": "“In favor” of police brutality are the authors who support law enforcement, and the fact that in order for police officers to do their job, tragedies and collateral injuries of civilians may be necessary or unavoidable. ",
+    "against": "“Against” are the people who are opposed to physical or verbal harassment, physical or mental injury, property damage and misconduct of police officers."
+},
+"capitalism":{
+    "display_name": "capitalism",
+    "description": "This topic is about capitalism as an economic system.", 
+    "in_favor": "“In favor” of capitalism are the authors who support the promotion of free markets and the private ownership of the means of production in order to make a profit. ",
+    "against": "“Against” capitalism are the authors who wish to place restrictions on market operations or oppose capitalism entirely and think that capitalism should be replaced with another type of economic system. They may also support the public or direct worker ownership and administration of the means of production and allocation of resources."
+},
+"climate-change":{
+    "display_name": "climate change is caused by humans",
+    "description": "This topic is about the long-term shift in global or regional climate patterns that is caused by humans.", 
+    "in_favor": "“In favor” of climate change are the authors who support that climate change is a real man-made problem that is problem, threatens or will eventually threaten human existence, and affects (or will affect) the survival of animals. ",
+    "against": "“Against” climate change are the people who either believe that it is not a real problem or that it exists but it is not man-made, or believe that it exists, is man-made but it isn't a problem to human existence."
+}
+}
