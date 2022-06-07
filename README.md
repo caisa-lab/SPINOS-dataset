@@ -23,13 +23,9 @@ context_posts = pd.read_pickle('SPINOS_context_for_annotators.pkl')
 ```
 The index of the rows corresponds to the ids of the posts in the Reddit API
 
-['author_id', 'title', 'content', 'annotation', 'topic', 'subreddit',
-       'is_sarcastic', 'is_unsure', 'is_explicit', 'top_level_post',
-       'top_level_post_id', 'parents', 'parent_ids', 'timestamp']
-
 The dataframe contains the following columns:
 
-- 'author_id' *(str)*: Which user has posted this particular post. *Note:* The usernames are anonymous.
+- `author_id` *(str)*: Which user has posted this particular post. *Note:* The usernames are anonymous.
 
 - `title` *(str)*: The title of the post, if it exists.
 
