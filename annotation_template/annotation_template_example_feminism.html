@@ -1,0 +1,1644 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Stance Prediction Annotation</title>
+
+    <!-- bootstrap scripts -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>  
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.0/font/bootstrap-icons.css">
+</head>
+
+<body>
+    <style>
+        .rangeLabels{
+            border: 0px;
+        }
+        .light-red{
+            color:rgb(255, 72, 0);
+            border-color: rgb(255, 72, 0);
+        }
+        .light-red:hover{
+            color: black;
+            border-color: rgb(255, 72, 0);
+            background-color: rgb(255, 72, 0);
+        }
+        .btn-check:checked +  .light-red{
+            color: black;
+            border-color: rgb(255, 72, 0);
+            background-color: rgb(255, 72, 0);
+        }
+
+        .alert-success-lighter{
+            background-color: #def5ea;
+            border-color: #c8ebdb;
+            color: #2a6e4f;
+        }
+        .alert-danger-lighter{
+            background-color: #ffeeef;
+            border-color: #f0cace;
+            color: #a3343d;
+        }
+
+        .light-green{
+            color:rgb(0, 180, 0);
+            border-color: rgb(0, 180, 0);
+        }
+        .light-green:hover{
+            color: black;
+            border-color: rgb(0, 180, 0);
+            background-color: rgb(0, 180, 0);
+        }
+        .btn-check:checked +  .light-green{
+            color: black;
+            border-color: rgb(0, 180, 0);
+            background-color: rgb(0, 180, 0);
+        }
+        .post{
+            /* font-size: larger; */
+            margin-left: 1rem;
+        }
+        .answer-btns{
+            margin-left: 1rem;
+        }
+        .card-footer{
+            background-color: white;
+        }
+
+        .more_answer_checkboxes{
+            margin-left: 2rem;
+        }
+
+        .guidelines{
+            padding: 1%;
+            margin: 2%;
+        }
+
+        .task{
+            padding: 1%;
+            margin: 2%;
+        }
+
+        .example{
+            /* background-color: lightgray; */
+            padding: 0.5%;
+        }
+
+
+    </style>
+
+    <div class="guidelines">
+        <h3>Guidelines</h3>
+        <div class="mb-2"><b>DISCLAIMER:</b> Statements may contain strong language or may be offensive to some readers. Your anwers will be assessed for their quality, please read each statement carefully and answer according to the guidelines.</div>
+        <div>
+            Please study the following instructions carefully before starting with this HIT.
+        </div>
+        <div class="mt-2">
+            Read each of the statements below and select if the stance is strongly against, somewhat against, somewhat in favor, or strongly in favor towards the given topic.
+        </div>
+
+        <div class="accordion mt-3" id="AccordionGuidelines">
+            <div class="accordion-item">
+              <h2 class="accordion-header" id="headingOne">
+                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                  When to choose which stance?
+                </button>
+              </h2>
+              <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#AccordionGuidelines">
+                <div class="accordion-body">
+                    <div class="accordion accordion-flush" id="accordionFlushExample">
+                        <div class="accordion-item">
+                          <h2 class="accordion-header" id="flush-headingOne">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+                                <span style="color: red">Against</span>
+                            </button>
+                          </h2>
+                          <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+                            <div class="accordion-body">
+                                <ul>
+                                    <li>The statement is explicitly against the given topic. In this case remember to also check the <b>“Explicit”</b> button.</li>
+                                    <li>The statement is opposed to someone/something that is in favor of the given topic.</li>
+                                    <li>The statement is in support of someone/something that is against the given topic.</li>
+                                    <li>The statement is mirroring someone else’s negative opinion</li>  
+                                    <li>It can be implicitly derived that the statement is against a given topic from the information it contains (e.g. title of a news article, a scientific study, etc.), even though it is not in favor or against someone/something.</li> 
+                                </ul>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="accordion-item">
+                          <h2 class="accordion-header" id="flush-headingTwo">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
+                                <span style="color: green">In favor</span>
+                            </button>
+                          </h2>
+                          <div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo" data-bs-parent="#accordionFlushExample">
+                            <div class="accordion-body">
+                                <ul>
+                                    <li>The statement is explicitly in favor of the given topic. In this case remember to also check the <b>“Explicit”</b> button.</li>
+                                    <li>The statement is in support of someone/something that is in favor of the given topic. </li>
+                                    <li>The statement is opposed to someone/something that is against the given topic.</li>
+                                    <li>The statement is mirroring someone else’s positive opinion.</li>
+                                    <li>It can be implicitly derived that the statement is in favor of a given topic from the information it contains (e.g. title of a news article, a scientific study, etc.), even though it is not in favor or against someone/something.</li>
+                                </ul>
+                            </div>
+                          </div>
+                        </div>
+                        <!-- <div class="accordion-item">
+                          <h2 class="accordion-header" id="flush-headingThree">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseThree">
+                              Neutral / Ambiguous
+                            </button>
+                          </h2>
+                          <div id="flush-collapseThree" class="accordion-collapse collapse" aria-labelledby="flush-headingThree" data-bs-parent="#accordionFlushExample">
+                            <div class="accordion-body">
+                                <ul>
+                                   <li>The author explicitly states that he/she has a neutral opinion on the subject. In this case remember to also check the <b>“Explicit”</b> button.</li>
+                                   <li>The author supports both stances equally.</li>
+                                    <li>If the statement is neither ‘in favor’ nor ‘against’ a subject, then the stance is <b>not</b> neutral. In this case the statement  belongs to another category altogether (see ‘<b>No stance can be inferred</b>’)</li>
+                                </ul>
+                            </div>
+                          </div>
+                        </div> -->
+                    </div>
+                </div>   
+              </div>
+            </div>
+            <div class="accordion-item">
+              <h2 class="accordion-header" id="headingTwo">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                  When to choose strongly against/in favor?
+                </button>
+              </h2>
+              <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#AccordionGuidelines">
+                <div class="accordion-body">
+                    <ul>
+                        <li>The statement contains strong language and expresses strong emotions and passion about the subject. </li>
+                        <li>The author of the statement seems to be adamant in their opinion and the statement is assertive and has a sense of correctness, or clarity about a subject. </li>
+                        <li>The statement verbally attacks the opposed opinion or other authors who express it.</li>
+                        <li>The author uses sarcasm</li>
+                        <li>The author uses generalized statements about the group of people that are pro or against a topic</li>
+                        <li>The statement is written in a argumentative or condescending tone, like it is provoking people to react</li>
+                    </ul>
+                </div>
+              </div>
+            </div>
+            <div class="accordion-item">
+              <h2 class="accordion-header" id="headingThree">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                    When to choose somewhat against/in favor?
+                </button>
+              </h2>
+              <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#AccordionGuidelines">
+                <div class="accordion-body">
+                    <ul>
+                        <li>The author seems to be open to discussion and willing to engage in a conversation. </li>
+                        <li>The author is receptive to another person's opinion.</li>
+                        <li>The author is interested in another’s perspective</li>
+                        <li>The author sounds less dogmatic or uncertain about the subject</li>
+                    </ul>
+                </div>
+              </div>
+            </div>
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="headingFour">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                    What to do when no stance can be inferred?
+                    </button>
+                </h2>
+                <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour" data-bs-parent="#AccordionGuidelines">
+                    <div class="accordion-body">
+                        If the user does not take a stance on the relevant topic, click on the box ‘<b>A stance cannot be inferred</b>’ and choose an option that describes the type of the statement as good as possible:
+                        <ul>
+                            <li>The author supports both stances or explicitly expresses a neutral opinion </li>
+                            <li>The post is (somewhat) related to the topic, but a stance cannot be inferred </li>
+                            <li>The author asks a question: Asks for information, opinion, orientation, confirmation without revealing the stance on the relevant topic. Select this option <b>only when the stance is not implied</b>.</li>
+                            <li>Irrelevant response: Offers an irrelevant response to the topic; makes a joke, reflects on the subject, or talks about a completely different topic.</li>
+                            <li>Not understandable: Either because the language usage is extremely poor, or because the author is referring to an event or a person that you are not familiar with.</li>
+                            <li>Not applicable: Select if none of the above types describe the type of statement. 
+                            <i>In case of 'Not applicable', state briefly the type of statement in the description box.</i> </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="headingDecision">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseDecision" aria-expanded="false" aria-controls="collapseDecision">
+                    What if I am not sure of my decision?
+                    </button>
+                </h2>
+                <div id="collapseDecision" class="accordion-collapse collapse" aria-labelledby="headingDecision" data-bs-parent="#AccordionGuidelines">
+                    <div class="accordion-body">
+                        In case you assign a stance (strongly against, somewhat against, somewhat in favor, or strongly in favor) but you are unsure about what you have selected, then check the <b>"I am unsure of my stance assignment"</b> checkbox.
+                        By "unsure" we mean that either the statement could be interpreted completely differently by another annotator, or that it was very difficult to make a decision. <br>
+                        <i>Please use this selection as rarely as you can and with <b>extreme caution</b>.</i>
+                    </div>
+                </div>
+            </div>
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="headingsarcastic">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapsesarcastic" aria-expanded="false" aria-controls="collapsesarcastic">
+                    What if the post is sarcastic?
+                    </button>
+                </h2>
+                <div id="collapsesarcastic" class="accordion-collapse collapse" aria-labelledby="headingsarcastic" data-bs-parent="#AccordionGuidelines">
+                    <div class="accordion-body">
+                        In case you assign a stance (strongly against, somewhat against, somewhat in favor, or strongly in favor) but the post has a sarcastic tone, then check the <b>" This post is sarcastic"</b> checkbox. By "sarcastic" we define any statement that contains sarcasm, irony, humour, wordplay, puns, and generallly any kind of figurative language.
+                    </div>
+                </div>
+            </div>
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="headingFive">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
+                    Examples
+                    </button>
+                </h2>
+                <div id="collapseFive" class="accordion-collapse collapse" aria-labelledby="headingFive" data-bs-parent="#AccordionGuidelines">
+                    <div class="accordion-body">
+                        <div class="alert alert-info col-8" role="alert">
+                            <span style="font-size: larger;">Topic: <b>Climate Change</b></span>
+                            <div class="mt-2">
+                                This topic is about the long-term shift in global or regional climate patterns.
+                                <ul>
+                                    <li>“In favor” of climate change are the authors who support that climate change is a real man-made problem that threatens (or will eventually threaten) human existence, and affects (or will affect) the survival of animals.</li>
+                                    <li>“Against” climate change are the people who either believe that it is not a real problem or that it exists but it is not man-made, or believe that it exists, is man-made but it doesn't threaten (or will ever threaten) human existence.</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="accordion accordion-flush" id="accordionFlushExample">
+                            <div class="accordion-item">
+                              <h2 class="accordion-header" id="flush-headingOne">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+                                    <span style="color: red">Against</span>
+                                </button>
+                              </h2>
+                              <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+                                <div class="accordion-body">
+                                    <div class="alert alert-danger mt-2" role="alert">
+                                        Strongly against:
+                                        <ul>
+                                            <li><span class="example"> “Every single climate doomsday prediction has been false.”  (Generalization) </span></li>
+                                            <li><span class="example">“Come on alarmists, no comments? I know you're all lurking out there. No need to be shy.”  (Provocative)</span></li>
+                                        </ul>
+                                    </div>   
+                                    <div class="alert alert-danger-lighter mt-1" role="alert">
+                                        Somewhat against:
+                                        <ul>
+                                            <li><span class="example"> “There are people living in places that are -40c up to +40c. Why would it be such a problem, if in 50 years, it’s -39.4c through +40.6c?”  (Open to discussion)</span></li>
+                                            <li><span class="example">“I take these stories with a grain of salt. They're proposing we're on track for a hothouse earth, which is something that the IPCC has sated it's virtually impossible. We could very well end up like a greenhouse earth (similar to where it was at the beginning of the Stone Age.) Several tipping points can be reversed and some will take centuries to fully unfold.”   (Open to discussion)</span></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                              </div>
+                            </div>
+                            <!-- <div class="accordion-item">
+                              <h2 class="accordion-header" id="flush-headingTwo">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
+                                    Neutral / Ambiguous
+                                </button>
+                              </h2>
+                              <div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo" data-bs-parent="#accordionFlushExample">
+                                <div class="accordion-body">
+                                    <div class="alert alert-dark mt-1" role="alert">
+                                        Neutral/Ambiguous:
+                                        <ul>
+                                            <li><span class="example">“Define "legitimate threat"? Do I believe that climate change could cause a 5% future reduction in the growth of global GDP by 2100, maybe. Do I think it can cause the extinction of humanity, no, I don't believe that at all. I certainly think the "solutions" will have a worse effect on global gdp.”  (Supports both views)</span></li>                        
+                                        </ul>
+                                    </div>
+                                </div>
+                              </div>
+                            </div> -->
+                            <div class="accordion-item">
+                              <h2 class="accordion-header" id="flush-headingThree">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseThree">
+                                    <span style="color: green">In favor</span>
+                                </button>
+                              </h2>
+                              <div id="flush-collapseThree" class="accordion-collapse collapse" aria-labelledby="flush-headingThree" data-bs-parent="#accordionFlushExample">
+                                <div class="accordion-body">
+                                    <div class="alert alert-success-lighter mt-2" role="alert">
+                                        Somewhat in favor:
+                                        <ul>
+                                            <li><span class="example">“In order to prove the climate has actually changed, you kind of have to look at historical records. Compare it to a human: you can't prove a child is growing unless you measure their height and compare it to last year. Thankfully, we have numerous, high-quality historical records. I don't think there's any reason to ignore that evidence.”   (Sounds less dogmatic)</span></li>
+                                            <li><span class="example">“Well it opens up a bigger issue about international involvement. One problem here in the UK is the growing xenophobic idea that ""foreign aid"" is bad. Given our size, development level and density, we should be damneer carbon neutral as it is.   Our thrust should be on world efforts. But last election our new PM didn't even bother to show up to the climate debate.”   (Willing to engage in a conversation)</span></li>
+                                        </ul>
+                                    </div>
+                                    <div class="alert alert-success mt-2" role="alert">
+                                        Strongly in favor:
+                                        <ul>
+                                            <li><span class="example"> “Yeah, I'm done wasting my time on skeptics. They'll be inhabiting the same shitty fucked up carbon fueled earth that we will be.”  (Contains strong language)</span></li>
+                                            <li><span class="example">“Climate change is caused by humans. This has been known for over 30 years.”  (Assertive)</span></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                              </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+              
+        </div>
+
+        <div class="mt-2"><b>In each HIT, please read carefully the description of the given topic.</b></div>
+
+        <div class="mt-3">
+            After marking the stances in <b>ALL</b> of the following 4 statements, click on the ‘<b>Submit</b>’ button to finish this HIT.
+        </div>
+    </div>
+    <!-- END of Guidelines -->
+
+    <div container="container-fluid" class="task">
+
+    <!-- Topic and Topic Description: -->
+    <div class="alert alert-info col-8" role="alert">
+        <span style="font-size: larger;">Topic: <b>feminism</b></span>
+        <div class="mt-2">
+            The topic is related to feminism both in terms of equal rights and also in terms of opportunities.
+            <ul>
+                <li>“In favor” of feminism are the authors who state that women should have equal rights and opportunities in matters of divorce, property, employment, and other. </li>
+                <li>“Against” feminism are the authors who express any discrimination against women, or wish to suppress any kind of attempt for equal rights and opportunities.</li>
+            </ul>
+        </div>
+    </div>
+
+
+    <!-- https://www.mturk.com/mturk/externalSubmit   https://workersandbox.mturk.com/mturk/externalSubmit -->
+    <form id="mturk_form" method="POST" action="_SUBMIT_URL_">
+
+
+        
+
+            
+        <div class="card mt-4">
+            <div class="card-header">
+                <div class="alert alert-danger" role="alert" id="fec3vip_validation_feedback" style="display: none;"></div>
+
+                <div class="card-title mt-1">Statement:</div>
+
+            </div>
+            <div class="mt-3 ms-3">
+                <div class="btn-group" role="group">
+                    <input type="radio" class="btn-check" name="fec3vip#main" id="fec3vip_main" autocomplete="off" value="main" data-bs-toggle="collapse" data-bs-target="#fec3vip_MainPost">
+                    <label class="btn btn-outline-primary" for="fec3vip_main" aria-expanded="false" aria-controls="collapseExample">
+                        Show main post
+                    </label>
+                    
+                    <input type="radio" class="btn-check" name="fec3vip#previous" id="fec3vip_previous" autocomplete="off" value="previous" data-bs-toggle="collapse" data-bs-target="#fec3vip_Context"> 
+                    <label class="btn btn-outline-primary" for="fec3vip_previous" aria-expanded="false" aria-controls="collapseExample">
+                        Show previous posts
+                    </label>
+                    
+                </div>
+            
+            <!-- <div class="card-body">
+                <button class="btn btn-outline-primary" type="button" data-bs-toggle="collapse" data-bs-target="#fec3vip_MainPost" aria-expanded="false" aria-controls="collapseExample">
+                    Show main post
+                </button>
+                
+                <button class="btn btn-outline-primary" type="button" data-bs-toggle="collapse" data-bs-target="#fec3vip_Context" aria-expanded="false" aria-controls="collapseExample">
+                    Show previous posts
+                </button>
+                 -->
+
+                <div class="collapse mt-3" id="fec3vip_MainPost">
+                    <div class="card card-body">
+                      <div class="alert alert-primary mt-2" role="alert">
+                          <div class="mb-3"><b>Woman hates men who ask for consent</b></div>
+                          
+                          <div class="mb-3">
+                              Woman hates men who ask for consent
+                          </div>
+                          
+                      </div>
+                    </div>
+                </div>
+                
+                <div class="collapse mt-3" id="fec3vip_Context">
+                  <div class="card card-body">
+                    
+                    <div class="alert alert-info mt-2" role="alert">
+                        
+                        <div class="mb-3">
+                            Why exactly is it a turn off?
+                        </div>
+                        
+                        <div class="mb-3">
+                            You&#39;d think that a guy treating you with respect, as an equal willing participant with desires of your own, trying to make you comfortable, asking you what you want to do, asking for consent, etc would make the entire experience more enjoyable for you, but apparently doing all that has the exact opposite effect.
+                        </div>
+                        
+                    </div>
+                    
+                    <div class="alert alert-info mt-2" role="alert">
+                        
+                        <div class="mb-3">
+                            For me personally it&#39;s like someone asks for a drink, I give them a drink, then they ask permission every time they take a sip.
+                        </div>
+                        
+                        <div class="mb-3">
+                            IT&#39;S YOUR DRINK, JUST DRINK IT!
+                        </div>
+                        
+                    </div>
+                    
+                    <div class="alert alert-info mt-2" role="alert">
+                        
+                        <div class="mb-3">
+                            The question is what do I have consent to do? I&#39;ve reached over towards her boobs, and stopped short and gave her a questioning look and got the go ahead nod to play with them. So now I&#39;m on second base (or something like that).
+                        </div>
+                        
+                        <div class="mb-3">
+                            Does that grant me permission to reach down and insert fingers into her crotch, insert my penis with a condom on in her, or bareback her, or backdoor her?
+                        </div>
+                        
+                        <div class="mb-3">
+                             I would say not, the only &#34;drink&#34; shared with me is playing with her boobs. I think in this context, I would be ok going from playing with her nipples with my fingers to sucking them. And if that&#39;s what you mean I see where you are coming from and I agree, but before I grab a &#34;different drink&#34;, I think additional consent is in order.
+                        </div>
+                        
+                    </div>
+                    
+                  </div>
+                </div>
+                
+                <div class="row post mt-2">
+                    
+                    <div class="mb-3">
+                        This is just with me, do not think that this is how you can act with all women:
+                    </div>
+                    
+                    <div class="mb-3">
+                        A slow, questioning finger trail up my leg towards my funzone is fine with me. If I don&#39;t want it, I&#39;ll push your hand away.
+                    </div>
+                    
+                </div>
+            </div> 
+            <div class="card-footer">
+                <div class="row mt-2 answer-btns flex-wrap">
+                    The author is
+                    <div class="btn-group col-8 form-check flex-wrap" role="group" id="group_fec3vip">
+                        <input type="radio" class="btn-check" name="fec3vip#answer" id="fec3vip_a" autocomplete="off" value="s_against">
+                        <label class="btn btn-outline-danger" for="fec3vip_a">strongly against</label>
+
+                        <input type="radio" class="btn-check" name="fec3vip#answer" id="fec3vip_b" autocomplete="off" value="against">
+                        <label class="btn light-red" for="fec3vip_b">somewhat against</label>
+                      
+                        <!-- <input type="radio" class="btn-check" name="fec3vip#answer" id="fec3vip_c" autocomplete="off" value="neutral">
+                        <label class="btn btn-outline-dark" for="fec3vip_c" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Check this if the author supports both stances or explicitly expresses a neutral opinion. If the statement is neither 'in favor' nor 'against', then check the 'A stance cannot be inferred' button.">
+                            neutral on  
+                        </label> -->
+                      
+                        <input type="radio" class="btn-check" name="fec3vip#answer" id="fec3vip_d" autocomplete="off" value="favor">
+                        <label class="btn light-green" for="fec3vip_d">somewhat in favor for</label>
+
+                        <input type="radio" class="btn-check" name="fec3vip#answer" id="fec3vip_e" autocomplete="off" value="s_favor">
+                        <label class="btn btn-outline-success" for="fec3vip_e">strongly in favor for</label>
+                    </div>                    
+                    feminism.                    
+                </div>
+                <div class="mt-3 ms-3">
+                    <div class="btn-group" role="group">
+                        <input type="radio" class="btn-check" name="fec3vip#explicit" id="fec3vip_imp" autocomplete="off" value="implicit">
+                        <label class="btn btn-outline-secondary" for="fec3vip_imp">Implicit</label>
+
+                        <input type="radio" class="btn-check" name="fec3vip#explicit" id="fec3vip_exp" autocomplete="off" value="explicit">
+                        <label class="btn btn-outline-secondary" for="fec3vip_exp" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Only check 'explicit' if the author clearly states their stance: e.g. 'I am pro choice' (topic: abortion)">
+                            Explicit
+                        </label>
+                      
+                    </div>
+                </div>
+                <div class="mt-3 ms-3">
+                    <input class="form-check-input" type="checkbox" value="unsure" id="fec3vip_unsure">
+                    <label class="form-check-label" for="fec3vip_unsure">
+                        I am unsure about my stance assignment <span  data-bs-toggle="tooltip" data-bs-placement="right" title="By 'unsure' we mean that either the statement could be interpreted completely differently by another annotator, or it was very difficult to make a decision."><i class="bi bi-info-circle"></i> </span>
+                    </label> 
+                </div>
+                <div class="mt-3 ms-3">
+                    <input class="form-check-input" type="checkbox" value="sarcastic" id="fec3vip_sarcastic">
+                    <label class="form-check-label" for="fec3vip_sarcastic">
+                        This post is sarcastic <span  data-bs-toggle="tooltip" data-bs-placement="right" title="By 'sarcastic' we define any statement that contains sarcasm, irony, humour, wordplay, puns, and generallly any kind of figurative language."><i class="bi bi-info-circle"></i> </span>
+                    </label> 
+                </div>
+                <div class="mt-3 ms-3 flex-nowrap">
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="noStanceInside" data-id="fec3vip" id="checkbox_fec3vip" onclick="show_other_options(this)" data-bs-toggle="collapse" href="#collapse_fec3vip">
+                        <label class="form-check-label" for="checkbox_fec3vip">
+                            A stance cannot be inferred because:
+                        </label>
+                    </div>
+                    <div class="more_answer_checkboxes collapse" id="collapse_fec3vip">
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" value="neutral_stance" name="fec3vip#other" id="neutral_stance_fec3vip">
+                            <label class="form-check-label" for="neutral_stance_fec3vip">
+                                The author supports both stances or explicitly expresses a neutral opinion
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" value="stance_not_inferrable" name="fec3vip#other" id="not_inferrable_fec3vip">
+                            <label class="form-check-label" for="not_inferrable_fec3vip">
+                                The post is (somewhat) related to the topic, but  a stance cannot be inferred
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" value="asks_information" name="fec3vip#other" id="information_fec3vip">
+                            <label class="form-check-label" for="information_fec3vip">
+                                The author asks a question <span  data-bs-toggle="tooltip" data-bs-placement="right" title=" Asks for information, opinion, orientation, confirmation without revealing the stance on the relevant topic."><i class="bi bi-info-circle"></i> </span>
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" value="is_irrelevant" name="fec3vip#other" id="irrelevant_fec3vip">
+                            <label class="form-check-label" for="irrelevant_fec3vip">
+                                The post is irrelevant to the topic <span  data-bs-toggle="tooltip" data-bs-placement="right" title="Offers an irrelevant response to the topic; makes a joke, reflects on the subject, or talks about a completely different topic."><i class="bi bi-info-circle"></i> </span>
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" value="is_not_understandable" name="fec3vip#other" id="understandable_fec3vip">
+                            <label class="form-check-label" for="understandable_fec3vip">
+                                The statement is not understandable <span  data-bs-toggle="tooltip" data-bs-placement="right" title="Either because the language usage is extremely poor, or because the author is referring  to an event or a person that you are not familiar with"><i class="bi bi-info-circle"></i> </span>
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" value="is_not_english" name="fec3vip#other" id="not_english_fec3vip">
+                            <label class="form-check-label" for="not_english_fec3vip">
+                                The statement is not in English
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" value="not_applicable" name="fec3vip#other" id="other_box_fec3vip">
+                            <label class="form-check-label" for="other_box_fec3vip">
+                                Not applicable:
+                                <input class="form-control" type="text" id="remark_fec3vip"   name="fec3vip#otherRemark">
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        
+
+            
+        <div class="card mt-4">
+            <div class="card-header">
+                <div class="alert alert-danger" role="alert" id="f3ayszj_validation_feedback" style="display: none;"></div>
+
+                <div class="card-title mt-1">Statement:</div>
+
+            </div>
+            <div class="mt-3 ms-3">
+                <div class="btn-group" role="group">
+                    <input type="radio" class="btn-check" name="f3ayszj#main" id="f3ayszj_main" autocomplete="off" value="main" data-bs-toggle="collapse" data-bs-target="#f3ayszj_MainPost">
+                    <label class="btn btn-outline-primary" for="f3ayszj_main" aria-expanded="false" aria-controls="collapseExample">
+                        Show main post
+                    </label>
+                    
+                    <input type="radio" class="btn-check" name="f3ayszj#previous" id="f3ayszj_previous" autocomplete="off" value="previous" data-bs-toggle="collapse" data-bs-target="#f3ayszj_Context"> 
+                    <label class="btn btn-outline-primary" for="f3ayszj_previous" aria-expanded="false" aria-controls="collapseExample">
+                        Show previous posts
+                    </label>
+                    
+                </div>
+            
+            <!-- <div class="card-body">
+                <button class="btn btn-outline-primary" type="button" data-bs-toggle="collapse" data-bs-target="#f3ayszj_MainPost" aria-expanded="false" aria-controls="collapseExample">
+                    Show main post
+                </button>
+                
+                <button class="btn btn-outline-primary" type="button" data-bs-toggle="collapse" data-bs-target="#f3ayszj_Context" aria-expanded="false" aria-controls="collapseExample">
+                    Show previous posts
+                </button>
+                 -->
+
+                <div class="collapse mt-3" id="f3ayszj_MainPost">
+                    <div class="card card-body">
+                      <div class="alert alert-primary mt-2" role="alert">
+                          <div class="mb-3"><b>A honest question, why are the trad cons here using the Egalitarian label?</b></div>
+                          
+                          <div class="mb-3">
+                              If you support housewives, and talk about housework being unpaid labor, your can&#39;t advocate for men&#39;s rights or egalitarianism. Your trad con views are antithetical to the concept of egalitarianism.
+                          </div>
+                          
+                          <div class="mb-3">
+                              
+                          </div>
+                          
+                          <div class="mb-3">
+                              
+                          </div>
+                          
+                          <div class="mb-3">
+                              Also married couples get tax breaks, so that makes the housewife arrangement the business of the rest of society. The marriage tax break exists so the man can give even more money to the lazy stay at home parasite.
+                          </div>
+                          
+                          <div class="mb-3">
+                              
+                          </div>
+                          
+                          <div class="mb-3">
+                              
+                          </div>
+                          
+                          <div class="mb-3">
+                              Men who work overtime in relationships are paying for the woman to have more free time and to do more consumer spending. Meanwhile women have affirmative action that have pushed men out of the job market, and still demand higher status men.
+                          </div>
+                          
+                          <div class="mb-3">
+                              
+                          </div>
+                          
+                          <div class="mb-3">
+                              
+                          </div>
+                          
+                          <div class="mb-3">
+                              IF women really cared at their male partners they would work as well, and pool their resources, so both parties in the relationship can work less.
+                          </div>
+                          
+                          <div class="mb-3">
+                              
+                          </div>
+                          
+                          <div class="mb-3">
+                               Also men do not want lazy housewives, it is just a price they are willing to pay to get a relationship. Men who tell themselves that are in denial.
+                          </div>
+                          
+                      </div>
+                    </div>
+                </div>
+                
+                <div class="collapse mt-3" id="f3ayszj_Context">
+                  <div class="card card-body">
+                    
+                    <div class="alert alert-info mt-2" role="alert">
+                        
+                        <div class="mb-3">
+                            Not a tradcon by far, here, but see a few misconceptions. Some people do actually enjoy their jobs that require long hours and would be doing them anyway, and actually want someone who has a different drive than them, to balance the life they have.
+                        </div>
+                        
+                        <div class="mb-3">
+                            And Egalitarianism doesn&#39;t mean that everything should be made equal everywhere, but rather that people have inherently the same worth and the same rights.
+                        </div>
+                        
+                        <div class="mb-3">
+                             A person who works 60h/week in a relationship with someone who works 15h/week can completely be egalitarian. I don&#39;t see the issue there.
+                        </div>
+                        
+                        <div class="mb-3">
+                            People are free to set up their life&#39;s as they see fit.
+                        </div>
+                        
+                    </div>
+                    
+                  </div>
+                </div>
+                
+                <div class="row post mt-2">
+                    
+                    <div class="mb-3">
+                        &gt;Not a tradcon by far, here, but see a few misconceptions. Some people do actually enjoy their jobs that require long hours and would be doing them anyway, and actually want someone who has a different drive than them, to balance the life they have.
+                    </div>
+                    
+                    <div class="mb-3">
+                        They enjoy a parasite who nags and controls their earnings and free time, they can call themselves a happy slave. They don&#39;t need to call themselves &#34;equal&#34;
+                    </div>
+                    
+                    <div class="mb-3">
+                        &amp;#x200B;
+                    </div>
+                    
+                    <div class="mb-3">
+                        &gt;And Egalitarianism doesn&#39;t mean that everything should be made equal everywhere, but rather that people have inherently the same worth and the same rights.
+                    </div>
+                    
+                    <div class="mb-3">
+                        Marriage arranged couples do not have the same worth or the same rights. Also they&#39;re considered more worthy than singles because of tax breaks. Stop saying this.
+                    </div>
+                    
+                    <div class="mb-3">
+                        &amp;#x200B;
+                    </div>
+                    
+                    <div class="mb-3">
+                        &gt;A person who works 60h/week in a relationship with someone who works 15h/week can completely be egalitarian. I don&#39;t see the issue there. People are free to set up their life&#39;s as they see fit.
+                    </div>
+                    
+                    <div class="mb-3">
+                        &#34;Egalitarianism&#34; Doesn&#39;t mean &#34;set up your own life as you see fit&#34;. Definitions are meant to have standards.
+                    </div>
+                    
+                </div>
+            </div> 
+            <div class="card-footer">
+                <div class="row mt-2 answer-btns flex-wrap">
+                    The author is
+                    <div class="btn-group col-8 form-check flex-wrap" role="group" id="group_f3ayszj">
+                        <input type="radio" class="btn-check" name="f3ayszj#answer" id="f3ayszj_a" autocomplete="off" value="s_against">
+                        <label class="btn btn-outline-danger" for="f3ayszj_a">strongly against</label>
+
+                        <input type="radio" class="btn-check" name="f3ayszj#answer" id="f3ayszj_b" autocomplete="off" value="against">
+                        <label class="btn light-red" for="f3ayszj_b">somewhat against</label>
+                      
+                        <!-- <input type="radio" class="btn-check" name="f3ayszj#answer" id="f3ayszj_c" autocomplete="off" value="neutral">
+                        <label class="btn btn-outline-dark" for="f3ayszj_c" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Check this if the author supports both stances or explicitly expresses a neutral opinion. If the statement is neither 'in favor' nor 'against', then check the 'A stance cannot be inferred' button.">
+                            neutral on  
+                        </label> -->
+                      
+                        <input type="radio" class="btn-check" name="f3ayszj#answer" id="f3ayszj_d" autocomplete="off" value="favor">
+                        <label class="btn light-green" for="f3ayszj_d">somewhat in favor for</label>
+
+                        <input type="radio" class="btn-check" name="f3ayszj#answer" id="f3ayszj_e" autocomplete="off" value="s_favor">
+                        <label class="btn btn-outline-success" for="f3ayszj_e">strongly in favor for</label>
+                    </div>                    
+                    feminism.                    
+                </div>
+                <div class="mt-3 ms-3">
+                    <div class="btn-group" role="group">
+                        <input type="radio" class="btn-check" name="f3ayszj#explicit" id="f3ayszj_imp" autocomplete="off" value="implicit">
+                        <label class="btn btn-outline-secondary" for="f3ayszj_imp">Implicit</label>
+
+                        <input type="radio" class="btn-check" name="f3ayszj#explicit" id="f3ayszj_exp" autocomplete="off" value="explicit">
+                        <label class="btn btn-outline-secondary" for="f3ayszj_exp" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Only check 'explicit' if the author clearly states their stance: e.g. 'I am pro choice' (topic: abortion)">
+                            Explicit
+                        </label>
+                      
+                    </div>
+                </div>
+                <div class="mt-3 ms-3">
+                    <input class="form-check-input" type="checkbox" value="unsure" id="f3ayszj_unsure">
+                    <label class="form-check-label" for="f3ayszj_unsure">
+                        I am unsure about my stance assignment <span  data-bs-toggle="tooltip" data-bs-placement="right" title="By 'unsure' we mean that either the statement could be interpreted completely differently by another annotator, or it was very difficult to make a decision."><i class="bi bi-info-circle"></i> </span>
+                    </label> 
+                </div>
+                <div class="mt-3 ms-3">
+                    <input class="form-check-input" type="checkbox" value="sarcastic" id="f3ayszj_sarcastic">
+                    <label class="form-check-label" for="f3ayszj_sarcastic">
+                        This post is sarcastic <span  data-bs-toggle="tooltip" data-bs-placement="right" title="By 'sarcastic' we define any statement that contains sarcasm, irony, humour, wordplay, puns, and generallly any kind of figurative language."><i class="bi bi-info-circle"></i> </span>
+                    </label> 
+                </div>
+                <div class="mt-3 ms-3 flex-nowrap">
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="noStanceInside" data-id="f3ayszj" id="checkbox_f3ayszj" onclick="show_other_options(this)" data-bs-toggle="collapse" href="#collapse_f3ayszj">
+                        <label class="form-check-label" for="checkbox_f3ayszj">
+                            A stance cannot be inferred because:
+                        </label>
+                    </div>
+                    <div class="more_answer_checkboxes collapse" id="collapse_f3ayszj">
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" value="neutral_stance" name="f3ayszj#other" id="neutral_stance_f3ayszj">
+                            <label class="form-check-label" for="neutral_stance_f3ayszj">
+                                The author supports both stances or explicitly expresses a neutral opinion
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" value="stance_not_inferrable" name="f3ayszj#other" id="not_inferrable_f3ayszj">
+                            <label class="form-check-label" for="not_inferrable_f3ayszj">
+                                The post is (somewhat) related to the topic, but  a stance cannot be inferred
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" value="asks_information" name="f3ayszj#other" id="information_f3ayszj">
+                            <label class="form-check-label" for="information_f3ayszj">
+                                The author asks a question <span  data-bs-toggle="tooltip" data-bs-placement="right" title=" Asks for information, opinion, orientation, confirmation without revealing the stance on the relevant topic."><i class="bi bi-info-circle"></i> </span>
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" value="is_irrelevant" name="f3ayszj#other" id="irrelevant_f3ayszj">
+                            <label class="form-check-label" for="irrelevant_f3ayszj">
+                                The post is irrelevant to the topic <span  data-bs-toggle="tooltip" data-bs-placement="right" title="Offers an irrelevant response to the topic; makes a joke, reflects on the subject, or talks about a completely different topic."><i class="bi bi-info-circle"></i> </span>
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" value="is_not_understandable" name="f3ayszj#other" id="understandable_f3ayszj">
+                            <label class="form-check-label" for="understandable_f3ayszj">
+                                The statement is not understandable <span  data-bs-toggle="tooltip" data-bs-placement="right" title="Either because the language usage is extremely poor, or because the author is referring  to an event or a person that you are not familiar with"><i class="bi bi-info-circle"></i> </span>
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" value="is_not_english" name="f3ayszj#other" id="not_english_f3ayszj">
+                            <label class="form-check-label" for="not_english_f3ayszj">
+                                The statement is not in English
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" value="not_applicable" name="f3ayszj#other" id="other_box_f3ayszj">
+                            <label class="form-check-label" for="other_box_f3ayszj">
+                                Not applicable:
+                                <input class="form-control" type="text" id="remark_f3ayszj"   name="f3ayszj#otherRemark">
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        
+
+            
+        <div class="card mt-4">
+            <div class="card-header">
+                <div class="alert alert-danger" role="alert" id="fsm0z7r_validation_feedback" style="display: none;"></div>
+
+                <div class="card-title mt-1">Statement:</div>
+
+            </div>
+            <div class="mt-3 ms-3">
+                <div class="btn-group" role="group">
+                    <input type="radio" class="btn-check" name="fsm0z7r#main" id="fsm0z7r_main" autocomplete="off" value="main" data-bs-toggle="collapse" data-bs-target="#fsm0z7r_MainPost">
+                    <label class="btn btn-outline-primary" for="fsm0z7r_main" aria-expanded="false" aria-controls="collapseExample">
+                        Show main post
+                    </label>
+                    
+                    <input type="radio" class="btn-check" name="fsm0z7r#previous" id="fsm0z7r_previous" autocomplete="off" value="previous" data-bs-toggle="collapse" data-bs-target="#fsm0z7r_Context"> 
+                    <label class="btn btn-outline-primary" for="fsm0z7r_previous" aria-expanded="false" aria-controls="collapseExample">
+                        Show previous posts
+                    </label>
+                    
+                </div>
+            
+            <!-- <div class="card-body">
+                <button class="btn btn-outline-primary" type="button" data-bs-toggle="collapse" data-bs-target="#fsm0z7r_MainPost" aria-expanded="false" aria-controls="collapseExample">
+                    Show main post
+                </button>
+                
+                <button class="btn btn-outline-primary" type="button" data-bs-toggle="collapse" data-bs-target="#fsm0z7r_Context" aria-expanded="false" aria-controls="collapseExample">
+                    Show previous posts
+                </button>
+                 -->
+
+                <div class="collapse mt-3" id="fsm0z7r_MainPost">
+                    <div class="card card-body">
+                      <div class="alert alert-primary mt-2" role="alert">
+                          <div class="mb-3"><b>Shout out to Halsey, and all other outspoken feminists, for donating to black charities and for being out on the frontlines peacefully protesting and helping those who are falling victim to police brutality.</b></div>
+                          
+                          <div class="mb-3">
+                              Shout out to Halsey, and all other outspoken feminists, for donating to black charities and for being out on the frontlines peacefully protesting and helping those who are falling victim to police brutality.
+                          </div>
+                          
+                      </div>
+                    </div>
+                </div>
+                
+                <div class="collapse mt-3" id="fsm0z7r_Context">
+                  <div class="card card-body">
+                    
+                    <div class="alert alert-info mt-2" role="alert">
+                        
+                        <div class="mb-3">
+                            &gt;There are some feminists out there that I firmly believe are not &#34;women are better, fuck men&#34; and those are basically egalitarians that have mislabelled themselves.
+                        </div>
+                        
+                        <div class="mb-3">
+                            I don&#39;t know how to be any clearer.
+                        </div>
+                        
+                    </div>
+                    
+                    <div class="alert alert-info mt-2" role="alert">
+                        
+                        <div class="mb-3">
+                            Okay.
+                        </div>
+                        
+                        <div class="mb-3">
+                             Feminism = equality of the sexes Egalitarianism = equality of the sexes, races and classes.
+                        </div>
+                        
+                        <div class="mb-3">
+                            Therefore, egalitarian = feminist.
+                        </div>
+                        
+                    </div>
+                    
+                  </div>
+                </div>
+                
+                <div class="row post mt-2">
+                    
+                    <div class="mb-3">
+                        The original definition was:
+                    </div>
+                    
+                    <div class="mb-3">
+                         Feminism = equality of the sexes *via the promotion of women’s rights*
+                    </div>
+                    
+                    <div class="mb-3">
+                        By definition this isn’t going to help some other things, like paternity rights,
+                    </div>
+                    
+                    <div class="mb-3">
+                        and frankly some people don’t want to advocate for women’s rights or have that label stuck on them. Feminists, or anyone else for that matter, trying to gatekeep who wants to advocate for what just makes the people saying it look threatened. If someone wants to advocate for trans men’s dwarfs rights who are you to try and tell them they have to identify as a feminist?
+                    </div>
+                    
+                </div>
+            </div> 
+            <div class="card-footer">
+                <div class="row mt-2 answer-btns flex-wrap">
+                    The author is
+                    <div class="btn-group col-8 form-check flex-wrap" role="group" id="group_fsm0z7r">
+                        <input type="radio" class="btn-check" name="fsm0z7r#answer" id="fsm0z7r_a" autocomplete="off" value="s_against">
+                        <label class="btn btn-outline-danger" for="fsm0z7r_a">strongly against</label>
+
+                        <input type="radio" class="btn-check" name="fsm0z7r#answer" id="fsm0z7r_b" autocomplete="off" value="against">
+                        <label class="btn light-red" for="fsm0z7r_b">somewhat against</label>
+                      
+                        <!-- <input type="radio" class="btn-check" name="fsm0z7r#answer" id="fsm0z7r_c" autocomplete="off" value="neutral">
+                        <label class="btn btn-outline-dark" for="fsm0z7r_c" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Check this if the author supports both stances or explicitly expresses a neutral opinion. If the statement is neither 'in favor' nor 'against', then check the 'A stance cannot be inferred' button.">
+                            neutral on  
+                        </label> -->
+                      
+                        <input type="radio" class="btn-check" name="fsm0z7r#answer" id="fsm0z7r_d" autocomplete="off" value="favor">
+                        <label class="btn light-green" for="fsm0z7r_d">somewhat in favor for</label>
+
+                        <input type="radio" class="btn-check" name="fsm0z7r#answer" id="fsm0z7r_e" autocomplete="off" value="s_favor">
+                        <label class="btn btn-outline-success" for="fsm0z7r_e">strongly in favor for</label>
+                    </div>                    
+                    feminism.                    
+                </div>
+                <div class="mt-3 ms-3">
+                    <div class="btn-group" role="group">
+                        <input type="radio" class="btn-check" name="fsm0z7r#explicit" id="fsm0z7r_imp" autocomplete="off" value="implicit">
+                        <label class="btn btn-outline-secondary" for="fsm0z7r_imp">Implicit</label>
+
+                        <input type="radio" class="btn-check" name="fsm0z7r#explicit" id="fsm0z7r_exp" autocomplete="off" value="explicit">
+                        <label class="btn btn-outline-secondary" for="fsm0z7r_exp" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Only check 'explicit' if the author clearly states their stance: e.g. 'I am pro choice' (topic: abortion)">
+                            Explicit
+                        </label>
+                      
+                    </div>
+                </div>
+                <div class="mt-3 ms-3">
+                    <input class="form-check-input" type="checkbox" value="unsure" id="fsm0z7r_unsure">
+                    <label class="form-check-label" for="fsm0z7r_unsure">
+                        I am unsure about my stance assignment <span  data-bs-toggle="tooltip" data-bs-placement="right" title="By 'unsure' we mean that either the statement could be interpreted completely differently by another annotator, or it was very difficult to make a decision."><i class="bi bi-info-circle"></i> </span>
+                    </label> 
+                </div>
+                <div class="mt-3 ms-3">
+                    <input class="form-check-input" type="checkbox" value="sarcastic" id="fsm0z7r_sarcastic">
+                    <label class="form-check-label" for="fsm0z7r_sarcastic">
+                        This post is sarcastic <span  data-bs-toggle="tooltip" data-bs-placement="right" title="By 'sarcastic' we define any statement that contains sarcasm, irony, humour, wordplay, puns, and generallly any kind of figurative language."><i class="bi bi-info-circle"></i> </span>
+                    </label> 
+                </div>
+                <div class="mt-3 ms-3 flex-nowrap">
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="noStanceInside" data-id="fsm0z7r" id="checkbox_fsm0z7r" onclick="show_other_options(this)" data-bs-toggle="collapse" href="#collapse_fsm0z7r">
+                        <label class="form-check-label" for="checkbox_fsm0z7r">
+                            A stance cannot be inferred because:
+                        </label>
+                    </div>
+                    <div class="more_answer_checkboxes collapse" id="collapse_fsm0z7r">
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" value="neutral_stance" name="fsm0z7r#other" id="neutral_stance_fsm0z7r">
+                            <label class="form-check-label" for="neutral_stance_fsm0z7r">
+                                The author supports both stances or explicitly expresses a neutral opinion
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" value="stance_not_inferrable" name="fsm0z7r#other" id="not_inferrable_fsm0z7r">
+                            <label class="form-check-label" for="not_inferrable_fsm0z7r">
+                                The post is (somewhat) related to the topic, but  a stance cannot be inferred
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" value="asks_information" name="fsm0z7r#other" id="information_fsm0z7r">
+                            <label class="form-check-label" for="information_fsm0z7r">
+                                The author asks a question <span  data-bs-toggle="tooltip" data-bs-placement="right" title=" Asks for information, opinion, orientation, confirmation without revealing the stance on the relevant topic."><i class="bi bi-info-circle"></i> </span>
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" value="is_irrelevant" name="fsm0z7r#other" id="irrelevant_fsm0z7r">
+                            <label class="form-check-label" for="irrelevant_fsm0z7r">
+                                The post is irrelevant to the topic <span  data-bs-toggle="tooltip" data-bs-placement="right" title="Offers an irrelevant response to the topic; makes a joke, reflects on the subject, or talks about a completely different topic."><i class="bi bi-info-circle"></i> </span>
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" value="is_not_understandable" name="fsm0z7r#other" id="understandable_fsm0z7r">
+                            <label class="form-check-label" for="understandable_fsm0z7r">
+                                The statement is not understandable <span  data-bs-toggle="tooltip" data-bs-placement="right" title="Either because the language usage is extremely poor, or because the author is referring  to an event or a person that you are not familiar with"><i class="bi bi-info-circle"></i> </span>
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" value="is_not_english" name="fsm0z7r#other" id="not_english_fsm0z7r">
+                            <label class="form-check-label" for="not_english_fsm0z7r">
+                                The statement is not in English
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" value="not_applicable" name="fsm0z7r#other" id="other_box_fsm0z7r">
+                            <label class="form-check-label" for="other_box_fsm0z7r">
+                                Not applicable:
+                                <input class="form-control" type="text" id="remark_fsm0z7r"   name="fsm0z7r#otherRemark">
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        
+
+            
+        <div class="card mt-4">
+            <div class="card-header">
+                <div class="alert alert-danger" role="alert" id="fv9848g_validation_feedback" style="display: none;"></div>
+
+                <div class="card-title mt-1">Statement:</div>
+
+            </div>
+            <div class="mt-3 ms-3">
+                <div class="btn-group" role="group">
+                    <input type="radio" class="btn-check" name="fv9848g#main" id="fv9848g_main" autocomplete="off" value="main" data-bs-toggle="collapse" data-bs-target="#fv9848g_MainPost">
+                    <label class="btn btn-outline-primary" for="fv9848g_main" aria-expanded="false" aria-controls="collapseExample">
+                        Show main post
+                    </label>
+                    
+                    <input type="radio" class="btn-check" name="fv9848g#previous" id="fv9848g_previous" autocomplete="off" value="previous" data-bs-toggle="collapse" data-bs-target="#fv9848g_Context"> 
+                    <label class="btn btn-outline-primary" for="fv9848g_previous" aria-expanded="false" aria-controls="collapseExample">
+                        Show previous posts
+                    </label>
+                    
+                </div>
+            
+            <!-- <div class="card-body">
+                <button class="btn btn-outline-primary" type="button" data-bs-toggle="collapse" data-bs-target="#fv9848g_MainPost" aria-expanded="false" aria-controls="collapseExample">
+                    Show main post
+                </button>
+                
+                <button class="btn btn-outline-primary" type="button" data-bs-toggle="collapse" data-bs-target="#fv9848g_Context" aria-expanded="false" aria-controls="collapseExample">
+                    Show previous posts
+                </button>
+                 -->
+
+                <div class="collapse mt-3" id="fv9848g_MainPost">
+                    <div class="card card-body">
+                      <div class="alert alert-primary mt-2" role="alert">
+                          <div class="mb-3"><b>Most people, regardless of gender, prefer staying home to do chores / childcare instead of working a full-time job. Staying home instead of working is a privilege and women appear to enforce this gender role at least as often as men do, if not more.</b></div>
+                          
+                          <div class="mb-3">
+                              Most people, regardless of gender, prefer staying home to do chores / childcare instead of working a full-time job. Staying home instead of working is a privilege and women appear to enforce this gender role at least as often as men do, if not more.
+                          </div>
+                          
+                      </div>
+                    </div>
+                </div>
+                
+                <div class="collapse mt-3" id="fv9848g_Context">
+                  <div class="card card-body">
+                    
+                    <div class="alert alert-info mt-2" role="alert">
+                        
+                        <div class="mb-3">
+                            &gt; Speaking out about the problem is doing something.
+                        </div>
+                        
+                        <div class="mb-3">
+                            Granted. There&#39;s a difference between lifting a group up or treading another down,
+                        </div>
+                        
+                        <div class="mb-3">
+                             &gt;Some in the movement have tried to do this but have been attacked and called traitors as a result.
+                        </div>
+                        
+                        <div class="mb-3">
+                            Yep.
+                        </div>
+                        
+                    </div>
+                    
+                    <div class="alert alert-info mt-2" role="alert">
+                        
+                        <div class="mb-3">
+                            &gt;There&#39;s a difference between lifting a group up or treading another down,
+                        </div>
+                        
+                        <div class="mb-3">
+                            Sure.
+                        </div>
+                        
+                        <div class="mb-3">
+                            That&#39;s why I always say that feminists need to focus on lifting women up, not knocking men down.
+                        </div>
+                        
+                        <div class="mb-3">
+                            Consider it constructive criticism.
+                        </div>
+                        
+                    </div>
+                    
+                  </div>
+                </div>
+                
+                <div class="row post mt-2">
+                    
+                    <div class="mb-3">
+                        &gt; feminists need to focus on lifting women up, not knocking men down.
+                    </div>
+                    
+                    <div class="mb-3">
+                        Agreed
+                    </div>
+                    
+                </div>
+            </div> 
+            <div class="card-footer">
+                <div class="row mt-2 answer-btns flex-wrap">
+                    The author is
+                    <div class="btn-group col-8 form-check flex-wrap" role="group" id="group_fv9848g">
+                        <input type="radio" class="btn-check" name="fv9848g#answer" id="fv9848g_a" autocomplete="off" value="s_against">
+                        <label class="btn btn-outline-danger" for="fv9848g_a">strongly against</label>
+
+                        <input type="radio" class="btn-check" name="fv9848g#answer" id="fv9848g_b" autocomplete="off" value="against">
+                        <label class="btn light-red" for="fv9848g_b">somewhat against</label>
+                      
+                        <!-- <input type="radio" class="btn-check" name="fv9848g#answer" id="fv9848g_c" autocomplete="off" value="neutral">
+                        <label class="btn btn-outline-dark" for="fv9848g_c" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Check this if the author supports both stances or explicitly expresses a neutral opinion. If the statement is neither 'in favor' nor 'against', then check the 'A stance cannot be inferred' button.">
+                            neutral on  
+                        </label> -->
+                      
+                        <input type="radio" class="btn-check" name="fv9848g#answer" id="fv9848g_d" autocomplete="off" value="favor">
+                        <label class="btn light-green" for="fv9848g_d">somewhat in favor for</label>
+
+                        <input type="radio" class="btn-check" name="fv9848g#answer" id="fv9848g_e" autocomplete="off" value="s_favor">
+                        <label class="btn btn-outline-success" for="fv9848g_e">strongly in favor for</label>
+                    </div>                    
+                    feminism.                    
+                </div>
+                <div class="mt-3 ms-3">
+                    <div class="btn-group" role="group">
+                        <input type="radio" class="btn-check" name="fv9848g#explicit" id="fv9848g_imp" autocomplete="off" value="implicit">
+                        <label class="btn btn-outline-secondary" for="fv9848g_imp">Implicit</label>
+
+                        <input type="radio" class="btn-check" name="fv9848g#explicit" id="fv9848g_exp" autocomplete="off" value="explicit">
+                        <label class="btn btn-outline-secondary" for="fv9848g_exp" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Only check 'explicit' if the author clearly states their stance: e.g. 'I am pro choice' (topic: abortion)">
+                            Explicit
+                        </label>
+                      
+                    </div>
+                </div>
+                <div class="mt-3 ms-3">
+                    <input class="form-check-input" type="checkbox" value="unsure" id="fv9848g_unsure">
+                    <label class="form-check-label" for="fv9848g_unsure">
+                        I am unsure about my stance assignment <span  data-bs-toggle="tooltip" data-bs-placement="right" title="By 'unsure' we mean that either the statement could be interpreted completely differently by another annotator, or it was very difficult to make a decision."><i class="bi bi-info-circle"></i> </span>
+                    </label> 
+                </div>
+                <div class="mt-3 ms-3">
+                    <input class="form-check-input" type="checkbox" value="sarcastic" id="fv9848g_sarcastic">
+                    <label class="form-check-label" for="fv9848g_sarcastic">
+                        This post is sarcastic <span  data-bs-toggle="tooltip" data-bs-placement="right" title="By 'sarcastic' we define any statement that contains sarcasm, irony, humour, wordplay, puns, and generallly any kind of figurative language."><i class="bi bi-info-circle"></i> </span>
+                    </label> 
+                </div>
+                <div class="mt-3 ms-3 flex-nowrap">
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="noStanceInside" data-id="fv9848g" id="checkbox_fv9848g" onclick="show_other_options(this)" data-bs-toggle="collapse" href="#collapse_fv9848g">
+                        <label class="form-check-label" for="checkbox_fv9848g">
+                            A stance cannot be inferred because:
+                        </label>
+                    </div>
+                    <div class="more_answer_checkboxes collapse" id="collapse_fv9848g">
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" value="neutral_stance" name="fv9848g#other" id="neutral_stance_fv9848g">
+                            <label class="form-check-label" for="neutral_stance_fv9848g">
+                                The author supports both stances or explicitly expresses a neutral opinion
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" value="stance_not_inferrable" name="fv9848g#other" id="not_inferrable_fv9848g">
+                            <label class="form-check-label" for="not_inferrable_fv9848g">
+                                The post is (somewhat) related to the topic, but  a stance cannot be inferred
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" value="asks_information" name="fv9848g#other" id="information_fv9848g">
+                            <label class="form-check-label" for="information_fv9848g">
+                                The author asks a question <span  data-bs-toggle="tooltip" data-bs-placement="right" title=" Asks for information, opinion, orientation, confirmation without revealing the stance on the relevant topic."><i class="bi bi-info-circle"></i> </span>
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" value="is_irrelevant" name="fv9848g#other" id="irrelevant_fv9848g">
+                            <label class="form-check-label" for="irrelevant_fv9848g">
+                                The post is irrelevant to the topic <span  data-bs-toggle="tooltip" data-bs-placement="right" title="Offers an irrelevant response to the topic; makes a joke, reflects on the subject, or talks about a completely different topic."><i class="bi bi-info-circle"></i> </span>
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" value="is_not_understandable" name="fv9848g#other" id="understandable_fv9848g">
+                            <label class="form-check-label" for="understandable_fv9848g">
+                                The statement is not understandable <span  data-bs-toggle="tooltip" data-bs-placement="right" title="Either because the language usage is extremely poor, or because the author is referring  to an event or a person that you are not familiar with"><i class="bi bi-info-circle"></i> </span>
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" value="is_not_english" name="fv9848g#other" id="not_english_fv9848g">
+                            <label class="form-check-label" for="not_english_fv9848g">
+                                The statement is not in English
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" value="not_applicable" name="fv9848g#other" id="other_box_fv9848g">
+                            <label class="form-check-label" for="other_box_fv9848g">
+                                Not applicable:
+                                <input class="form-control" type="text" id="remark_fv9848g"   name="fv9848g#otherRemark">
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        
+        <div class="card mt-4">
+            <div class="card-header">
+                <div class="alert alert-danger" role="alert" style="display: none;"></div>
+
+                <div class="card-title mt-1">Survey (Optional):</div>
+
+            </div>
+            <div class="row mt-2 answer-btns flex-wrap">
+                <span>
+                    Please help us to resolve annotator bias by taking part in the following small survey. The participation is optional. You only need to answer the questions about your age and gender once. You can answer the question about stance only whenever you encounter a new topic. Your answers will not affect the acceptance or rejection of your assignments. 
+
+                    <b>Answer truthfully or not at all</b>
+                </span>
+            </div>
+            <div class="row mt-2 answer-btns flex-wrap">
+                What is your age?
+                <div class="form-check">
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" value="age_1" name="#age" id="age_1">
+                        <label class="form-check-label" for="age_1">
+                            less than 25 years
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" value="age_2" name="#age" id="age_2">
+                        <label class="form-check-label" for="age_2">
+                            26-35 years
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" value="age_3" name="#age" id="age_3">
+                        <label class="form-check-label" for="age_3">
+                            36-45 years
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" value="age_4" name="#age" id="age_4">
+                        <label class="form-check-label" for="age_4">
+                            46-55 years
+                        </label>
+                    </div>   
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" value="age_5" name="#age" id="age_5">
+                        <label class="form-check-label" for="age_5">
+                            more than 56 years
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row mt-2 answer-btns flex-wrap">
+                What is your gender?
+                <div class="form-check">
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" value="gender_1" name="#gender" id="gender_1">
+                        <label class="form-check-label" for="gender_1">
+                            Male
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" value="gender_2" name="#gender" id="gender_2">
+                        <label class="form-check-label" for="gender_2">
+                            Female
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" value="gender_3" name="#gender" id="gender_3">
+                        <label class="form-check-label" for="gender_3">
+                            Other
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt-2 answer-btns flex-wrap">
+                What is your stance towards feminism?
+
+                <div class="form-check">
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" value="stance_1" name="#stance" id="stance_1">
+                        <label class="form-check-label" for="stance_1">
+                            Strongly against
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" value="stance_2" name="#stance" id="stance_2">
+                        <label class="form-check-label" for="stance_2">
+                            Somewhat against
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" value="stance_3" name="#stance" id="stance_3">
+                        <label class="form-check-label" for="stance_3">
+                            Somewhat in favor
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" value="stance_4" name="#stance" id="stance_4">
+                        <label class="form-check-label" for="stance_4">
+                            Strongly in favor
+                        </label>
+                    </div>   
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" value="stance_5" name="#stance" id="stance_5">
+                        <label class="form-check-label" for="stance_5">
+                            I don't know much about this topic / I haven't thought about this
+                        </label>
+                    </div>
+                </div>
+
+            </div>            
+        </div>
+
+        <div class="comment-field form-group mt-5 col-6">
+            <textarea class="form-control" rows="3"  id="feedback" name="feedback" placeholder="Feedback on this HIT is highly appreciated."></textarea>
+        </div>
+        <div id="warning_label" role="alert" class="col-6 mt-3 alert alert-danger" style="display: none"></div>
+        <input id="submitButton" name="submitButton" class="btn btn-success mt-2" onClick="prepare_and_send_form_data()" type="button" value="Submit">
+        <input type="hidden" id="assignmentId" name="assignmentId" value="">
+    </form>
+
+    </div>
+
+
+    <script>
+
+        var num_posts = 4;
+        var post_ids = ['fec3vip', 'f3ayszj', 'fsm0z7r', 'fv9848g'];
+        var btn_suffixes = ["_a", "_b", "_d", "_e", "_exp", "_imp", "_unsure", "_sarcastic"];
+
+        var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+        var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+        return new bootstrap.Tooltip(tooltipTriggerEl)
+        })
+
+
+        document.getElementById('assignmentId').value = gup('assignmentId');
+    
+        // has the worker accepted the hit or just previewing?
+        if (gup('assignmentId') == "ASSIGNMENT_ID_NOT_AVAILABLE") {
+            // previewing, disable all inputs
+            document.getElementById('submitButton').disabled = true;
+            //alert("Disable Hit");
+            enable_inputs(false);
+            document.getElementById('submitButton').value = "Please accept the hit.";
+        } else {
+            //alert("Enable Hit");
+            enable_inputs(true);
+        }
+
+        function show_other_options(checkbox){
+            checkbox_id = checkbox["id"];
+            post_id = checkbox.getAttribute("data-id");
+        
+            checkbox_checked = document.getElementById(checkbox_id).checked;
+
+            if(checkbox_checked){
+                btn_suffixes.forEach(suffix => {
+                    btn_id = post_id + suffix;
+                    document.getElementById(btn_id).checked = false;
+                    document.getElementById(btn_id).disabled = true;
+                });
+            }
+            else{
+                // enable all stance buttons
+                btn_suffixes.forEach(suffix => {
+                    btn_id = post_id + suffix;
+                    document.getElementById(btn_id).disabled = false;
+                });
+                // remove all selections in the "no stance can be inferred" section
+                other_boxes = document.getElementsByName(post_id + "#other");
+                other_boxes.forEach(box => {
+                    box.checked = false;
+                });
+                other_remark = document.getElementById("remark_" + post_id);
+                other_remark.value = null;
+            }
+        }
+
+        function prepare_and_send_form_data(){
+            valid_form = true;
+            // get values of checkboxes:
+            var checkbox_values = new Array() 
+            for (var i=0; i<num_posts; i++) {
+                post_valid = true;
+                post_id = String(post_ids[i]);
+                checkbox_id = "checkbox_" + post_id;
+                checkbox_identifier = post_id + "#optionsCheckbox";
+                box_checked = document.getElementById(checkbox_id).checked;
+                one_checked = false;
+                main_box = document.getElementById(post_id + "_main");
+                checkbox_values[post_id + "#main"] = main_box.checked;
+                previous_box = document.getElementById(post_id + "_previous");
+                checkbox_values[post_id + "#previous"] = main_box.checked;
+                if (box_checked == true){
+                    checkbox_values[checkbox_identifier] = box_checked;
+                    stance_box = document.getElementById("neutral_stance_" + post_id);
+                    if(stance_box.checked == true){
+                        checkbox_values[post_id + "#NeutralStance"] = stance_box.checked;
+                        one_checked = true;
+                    }
+                    stance_box = document.getElementById("not_inferrable_" + post_id);
+                    if(stance_box.checked == true){
+                        checkbox_values[post_id + "#noStanceInferrable"] = stance_box.checked;
+                        one_checked = true;
+                    }
+                    understandable_box = document.getElementById("understandable_" + post_id);
+                    if(understandable_box.checked == true){
+                        checkbox_values[post_id + "#notUnderstandable"] = understandable_box.checked;
+                        one_checked = true;
+                    }
+                    understandable_box = document.getElementById("information_" + post_id);
+                    if(understandable_box.checked == true){
+                        checkbox_values[post_id + "#information"] = understandable_box.checked;
+                        one_checked = true;
+                    }
+                    understandable_box = document.getElementById("irrelevant_" + post_id);
+                    if(understandable_box.checked == true){
+                        checkbox_values[post_id + "#isIrrelevant"] = understandable_box.checked;
+                        one_checked = true;
+                    }
+                    english_box = document.getElementById("not_english_" + post_id);
+                    if(english_box.checked == true){
+                        checkbox_values[post_id + "#notEnglish"] = english_box.checked;
+                        one_checked = true;
+                    }
+                    understandable_box = document.getElementById("other_box_" + post_id);
+                    if(understandable_box.checked == true){
+                        checkbox_values[post_id + "#otherRemark"] = understandable_box.checked;
+                        remark_given = document.getElementById("remark_" + post_id).value;
+                        if(remark_given == ""){
+                            one_checked = false;
+                        }
+                        else{
+                            one_checked = true;
+                        }
+                    }
+                }
+                else{
+                    unsure_box = document.getElementById(post_id + "_unsure");
+                    if(unsure_box.checked == true){
+                        checkbox_values[post_id + "#unsure"] = unsure_box.checked;
+                    }
+                    sarcastic_box = document.getElementById(post_id + "_sarcastic");
+                    if(sarcastic_box.checked == true){
+                        checkbox_values[post_id + "#sarcastic"] = sarcastic_box.checked;
+                    }                    
+                    // is a stance selected?
+                    stance_selected = false;
+                    exp_imp_selected = false;
+                    btn_suffixes.forEach(suffix => {
+                        btn_id = post_id + suffix;
+                        stance_checked = document.getElementById(btn_id).checked;
+                        if (suffix == "_exp" || suffix == "_imp"){
+                            if (stance_checked==true){
+                                exp_imp_selected = true;
+                            }
+                        }
+                        else if (suffix == "_unsure" || suffix == "_sarcastic"){
+                            /* pass (do not treat a selected unsure or sarcastic box as a stance assignment) */ 
+                        }
+                        else{
+                            if (stance_checked==true){
+                                stance_selected = true;
+                            }
+                        }
+                        
+                    });
+                }
+                // make sure that form is valid!
+                feedbackText = "";
+                if(box_checked==true){
+                    if(one_checked==false){
+                        valid_form = false;
+                        post_valid = false;
+                        feedbackText = "Please select one of the other options or a stance for this post";
+                        document.getElementById(post_id + "_validation_feedback").style.display = "block";
+                    }
+                    else{
+                        document.getElementById(post_id + "_validation_feedback").style.display = "none";
+                    }
+                }   
+                else {
+                    if (stance_selected == false){
+                        valid_form = false;
+                        post_valid = false;
+                        feedbackText = "Please select a stance for this post or one of the 'other' options";
+                        document.getElementById(post_id + "_validation_feedback").style.display = "block";
+                    } else if (exp_imp_selected == false) {
+                        valid_form = false;
+                        post_valid = false;
+                        feedbackText = "Please select whether the stance is explicitly or implicitly in the statement";
+                        document.getElementById(post_id + "_validation_feedback").style.display = "block";
+                    } else { 
+                        document.getElementById(post_id + "_validation_feedback").style.display = "none";
+                    }
+                }
+
+                document.getElementById(post_id + "_validation_feedback").innerHTML = feedbackText;
+            }
+
+            if (document.getElementById("age_1").checked == true){
+                checkbox_values["#age"] = "age1";
+            } else if (document.getElementById("age_2").checked == true) {
+                checkbox_values["#age"] = "age2";
+            } else if (document.getElementById("age_3").checked == true) {
+                checkbox_values["#age"] = "age3";
+            } else if (document.getElementById("age_4").checked == true) {
+                checkbox_values["#age"] = "age4";                
+            } else if (document.getElementById("age_5").checked == true) {
+                checkbox_values["#age"] = "age5";
+            } else {     
+                checkbox_values["#age"] = "none";
+            }
+            
+            if (document.getElementById("gender_1").checked == true){
+                checkbox_values["#gender"] = "gender1";
+            } else if (document.getElementById("gender_2").checked == true) {
+                checkbox_values["#gender"] = "gender2";
+            } else if (document.getElementById("gender_3").checked == true) {
+                checkbox_values["#gender"] = "gender3";
+            } else {     
+                checkbox_values["#gender"] = "none";
+            }
+
+            if (document.getElementById("stance_1").checked == true){
+                checkbox_values["#stance"] = "stance1";
+            } else if (document.getElementById("stance_2").checked == true) {
+                checkbox_values["#stance"] = "stance2";
+            } else if (document.getElementById("stance_3").checked == true) {
+                checkbox_values["#stance"] = "stance3";
+            } else if (document.getElementById("stance_4").checked == true) {
+                checkbox_values["#stance"] = "stance4";                
+            } else if (document.getElementById("stance_5").checked == true) {
+                checkbox_values["#stance"] = "stance5";
+            } else {     
+                checkbox_values["#stance"] = "none";
+            }
+            
+            // add data to form
+            for (key in checkbox_values) {
+                var input = document.getElementById(key)
+                if (input==null) {
+                    input = document.createElement("input");
+                    document.getElementById("mturk_form").appendChild(input);
+                }
+
+                input.type = "hidden";
+                input.name = key;
+                input.id = key;
+                input.value = checkbox_values[key];
+            }
+
+            // remove linebreaks from comment field
+            document.getElementById("feedback").value = document.getElementById("feedback").value.replace(/(\r\n\t|\n|\r\t)/gm," ");
+            
+
+
+            if (valid_form==true) {
+                document.getElementById('warning_label').innerHTML = "";
+                document.getElementById('warning_label').style.display = "none";
+                document.getElementById('mturk_form').submit();
+            } 
+            else {
+                document.getElementById('warning_label').innerHTML = "Before submitting this hit, please answer all questions.";
+                document.getElementById('warning_label').style.display = "block";
+            }
+
+        }
+    
+        // get URL parameters
+        function gup( name )
+        {
+            var regexS = "[\\?&amp;]"+name+"=([^&amp;#]*)";
+            var regex = new RegExp( regexS );
+            var tmpURL = window.location.href;
+            var results = regex.exec( tmpURL );
+            if( results == null )
+                return "";
+            else
+                return results[1];
+        }
+
+        // enable inputs when hit is accepted
+        function enable_inputs(v){
+            if(v==true){
+                // hit is accepted, enable all inputs
+            }
+            else{
+                // hit is just previewed, disable all inputs
+            }
+        }
+    
+    </script>
+</body>
+</html>
