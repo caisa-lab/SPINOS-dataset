@@ -2,7 +2,7 @@
 <img src="SPINOS.jpeg" width="128"/> 
 
 # SPINOS[^note]: A Dataset of <ins>S</ins>ubtle <ins>P</ins>olarity and <ins>IN</ins>tensity <ins>O</ins>pinion <ins>S</ins>hifts
-You can find <a href="https://raw.githack.com/caisa-lab/SPINOS-dataset/main/annotation_template/annotation_template_example_abortion.html" target="_blank"> here</a> an example of the annotation template for abortion. 
+You can find <a href="https://rawcdn.githack.com/caisa-lab/SPINOS-dataset/8adb8d3100632044378c44d5433b8226b306be26/annotation_template/annotation_template_example_abortion.html" target="_blank"> here</a> an example of the annotation template for abortion. 
 
 The dataset is introduced and analyzed in our paper: *Investigating User Radicalization: A Novel Dataset for Identifying Fine-Grained Temporal Shifts in Opinion*, Flora Sakketou, Allison Lahnala, Liane Vogel and Lucie Flek
 
