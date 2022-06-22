@@ -4,7 +4,7 @@
 # SPINOS[^note]: A Dataset of <ins>S</ins>ubtle <ins>P</ins>olarity and <ins>IN</ins>tensity <ins>O</ins>pinion <ins>S</ins>hifts
 You can find <a href="https://rawcdn.githack.com/caisa-lab/SPINOS-dataset/8adb8d3100632044378c44d5433b8226b306be26/annotation_template/annotation_template_example_abortion.html" target="_blank"> here</a> an example of the annotation template for abortion. 
 
-The dataset is introduced and analyzed in our paper: *Investigating User Radicalization: A Novel Dataset for Identifying Fine-Grained Temporal Shifts in Opinion*, Flora Sakketou, Allison Lahnala, Liane Vogel and Lucie Flek
+The dataset is introduced and analyzed in our<a href="https://arxiv.org/abs/2204.10190" target="_blank"> paper</a>: *Investigating User Radicalization: A Novel Dataset for Identifying Fine-Grained Temporal Shifts in Opinion*, Flora Sakketou, Allison Lahnala, Liane Vogel and Lucie Flek
 
 Read <a href="https://caisa-lab.github.io/2022/04/08/LREC-spinos.html" target="_blank"> here</a> a blog post about our paper.
 
